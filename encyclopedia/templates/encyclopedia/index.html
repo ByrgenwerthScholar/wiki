@@ -6,10 +6,12 @@
 
 {% block body %}
     <h1>All Pages</h1>
-
+ 
     <ul>
         {% for entry in entries %}
-            <li>{{ entry }}</li>
+        {% with "wiki/"|add:entry as entryLink %}
+            <li><a href={{entryLink}}>{{entry}}</a></li>
+        {% endwith %}
         {% endfor %}
     </ul>
 
