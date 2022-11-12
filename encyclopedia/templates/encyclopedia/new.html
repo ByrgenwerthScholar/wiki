@@ -1,0 +1,23 @@
+{% extends "encyclopedia/layout.html" %}
+
+
+
+
+{% block title %}
+    Create New Entry
+{% endblock %}
+
+{% block body %}
+ 
+    
+    <form action="{% url 'save' %}" method="GET">
+        
+        <p><label for="newText">Enter entry text here:</label> </p>
+        <textarea class="newText" name="newEntry"></textarea>
+        <br>
+        <button type="submit" value="Submit">Save</button>
+
+    </form>
+    
+
+{% endblock %}
