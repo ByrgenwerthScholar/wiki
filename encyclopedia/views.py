@@ -62,13 +62,12 @@ def pageNew(request):
 
 def entrySave(request):
     entryText = request.GET.get('newEntry')
-    if entryText.split()[0] == "#":
-        entryName = entryText.split()[1]
-    elif entryText.split()[0][0] == "#":
-        entryName = entryText.split()[0][1:]
-    else:
-        entryName = entryText.split()[0]
-    util.save_entry(entryName, entryText)
+    entryTitle = request.GET.get('title')
+    entries = util.list_entries()
+    for entry in entries:
+        if entryTitle == entry:
+            return HttpResponseNotFound("<h1 id=\"titleErr\" style=\"color:red; text-align:center; margin-top: 300px;\">Error Entry Name Already Exists</h1>")
+    util.save_entry(entryTitle, entryText)
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries(),
 
