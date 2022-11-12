@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 import markdown2
+import random
 
 
 from . import util
@@ -73,3 +74,27 @@ def entrySave(request):
 
     })
 
+def entryEdit(request):
+    entryTitle = request.GET.get('edit')
+    entryText = util.get_entry(entryTitle)
+    
+    return render(request, "encyclopedia/edit.html", {
+        "title": entryTitle,
+        "text": entryText
+    })
+
+def saveEdit(request):
+    entryText = request.GET.get('newEntry')
+    entryTitle = request.GET.get('title')
+    util.save_entry(entryTitle, entryText)
+    return HttpResponseRedirect("wiki/" + entryTitle)
+
+def randomEntry(request):
+    numOfEntry = random.randint(0,len(util.list_entries())-1)
+    entries = util.list_entries()
+    title = entries[numOfEntry]
+    entry = util.get_entry(title)
+    return render(request, "encyclopedia/entry.html", {
+                "title": title,
+                "entry": markdown2.markdown(entry)
+            })

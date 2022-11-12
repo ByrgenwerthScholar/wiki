@@ -12,6 +12,12 @@
  
 
 {{entry|safe}}
-        
+<br>
+<br>
+<form action="{% url 'edit' %}" method="GET">
+
+    <button type="submit" name="edit" value="{{title}}">Edit</button>
+
+</form> 
 
 {% endblock %}
